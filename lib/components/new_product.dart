@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class NewProduct extends StatelessWidget {
-  //final Rect myRect = const Offset(1.0, 2.0) & const Size(3.0, 4.0);
+  String url;
+  String model;
+  String price;
+  NewProduct({@required model, @required price, @required url}) {
+    this.model = model;
+    this.url = url;
+    this.price = price;
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -12,11 +19,11 @@ class NewProduct extends StatelessWidget {
         child: Container(
             constraints: BoxConstraints(
                 minWidth: 100, maxWidth: 170, minHeight: 100, maxHeight: 150),
-            decoration: const BoxDecoration(
-              image: const DecorationImage(
-                alignment: Alignment.topCenter,
-                image: AssetImage('images/new_shoe1.png'),
-                fit: BoxFit.scaleDown,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                alignment: Alignment.center,
+                image: AssetImage(url),
+                fit: BoxFit.contain,
               ),
               color: Colors.white,
             ),
@@ -67,7 +74,7 @@ class NewProduct extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                           child: Text(
-                            'NIKE AIR -MAX',
+                            model,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 12,
@@ -77,7 +84,7 @@ class NewProduct extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                           child: Text(
-                            '\$150.00',
+                            price,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 12,

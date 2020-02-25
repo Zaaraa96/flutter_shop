@@ -1,7 +1,24 @@
 import 'package:flutter/material.dart';
 
 class Product extends StatelessWidget {
-  //final Rect myRect = const Offset(1.0, 2.0) & const Size(3.0, 4.0);
+  Color backgroundColor;
+  String brand;
+  String model;
+  String price;
+  String url;
+  Product(
+      {@required backgroundColor,
+      @required brand,
+      @required model,
+      @required price,
+      @required url}) {
+    this.backgroundColor = backgroundColor;
+    this.brand = brand;
+    this.model = model;
+    this.url = url;
+    this.price = price;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,14 +35,14 @@ class Product extends StatelessWidget {
                     maxWidth: 300,
                     minHeight: 250,
                     maxHeight: 290),
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   boxShadow: <BoxShadow>[
                     BoxShadow(
                         color: Colors.grey,
                         blurRadius: 15.0,
                         offset: Offset(0.0, 0.75))
                   ],
-                  color: Colors.purple,
+                  color: backgroundColor,
                   borderRadius: BorderRadius.all(const Radius.circular(20)),
                 ),
                 child: Column(
@@ -37,7 +54,7 @@ class Product extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            'Nike',
+                            brand,
                             style: TextStyle(
                               color: Colors.white,
                             ),
@@ -59,7 +76,7 @@ class Product extends StatelessWidget {
                       child: Row(
                         children: <Widget>[
                           Text(
-                            'AIR-270',
+                            model,
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w500,
@@ -74,7 +91,7 @@ class Product extends StatelessWidget {
                       child: Row(
                         children: <Widget>[
                           Text(
-                            '\$150.00',
+                            price,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 12,
@@ -106,10 +123,10 @@ class Product extends StatelessWidget {
               width: 250,
               height: 250,
               margin: EdgeInsets.fromLTRB(5, 20, 0, 0),
-              decoration: const BoxDecoration(
-                image: const DecorationImage(
-                  image: AssetImage('images/shoe1.png'),
-                  fit: BoxFit.contain,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(url),
+                  fit: BoxFit.scaleDown,
                 ),
                 // boxShadow: <BoxShadow>[
 //                BoxShadow(

@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:new_app/sideBar.dart';
-import 'package:new_app/product.dart';
-import 'package:new_app/new_product.dart';
-import 'package:new_app/paint.dart';
-import 'package:new_app/footer.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:new_app/components/sideBar.dart';
+import 'package:new_app/components/paint.dart';
+import 'package:new_app/components/footer.dart';
+import 'productList.dart';
+import 'newProductList.dart';
 
 class TaskScreen extends StatefulWidget {
   @override
@@ -13,8 +12,10 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<Offset> _offsetAnimation;
+  List<double> y_rotate = [0.0, 0.0, 0.0, 0.0];
+  int productNum = 4;
+  ScrollController listController =
+      ScrollController(initialScrollOffset: 0, keepScrollOffset: true);
 
   final List<Tab> myTabs = <Tab>[
     Tab(text: 'Nike'),
@@ -29,26 +30,14 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
     _tabController = TabController(vsync: this, length: myTabs.length);
-    _controller = AnimationController(
-      duration: const Duration(seconds: 2),
-      vsync: this,
-    )..repeat(reverse: true);
-    _offsetAnimation = Tween<Offset>(
-      begin: const Offset(1.5, 0.0),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.linearToEaseOut,
-    ));
   }
 
   @override
   void dispose() {
     super.dispose();
     _tabController.dispose();
-
-    _controller.dispose();
   }
 
   @override
@@ -161,15 +150,62 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                           maxHeight: 300.0,
                           maxWidth: (MediaQuery.of(context).size.width) - 50.0,
                         ),
-                        child: ListView(
+                        child: ListView.builder(
                           scrollDirection: Axis.horizontal,
+                          controller: listController,
+                          itemCount: 4,
                           primary: false,
                           padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                          children: <Widget>[
-                            Product(),
-                            Product(),
-                            Product(),
-                          ],
+                          itemBuilder: (BuildContext context, int index) {
+                            return Listener(
+                              child: Transform(
+                                transform: Matrix4.identity()
+                                  ..setEntry(3, 2, 0.002)
+                                  ..rotateY(-0.5 * y_rotate[index]),
+                                child: productList[index],
+                              ),
+                              onPointerMove: (ctx) {
+                                bool startNext = false;
+                                AnimationController _controller =
+                                    AnimationController(
+                                  duration: const Duration(milliseconds: 500),
+                                  vsync: this,
+                                );
+                                Animation curve = CurvedAnimation(
+                                    parent: _controller, curve: Curves.easeOut);
+                                _controller.forward();
+                                curve.addStatusListener((status) {
+                                  if (status == AnimationStatus.completed) {
+                                    _controller.reverse(from: 1);
+                                  } else if (status ==
+                                      AnimationStatus.dismissed) {
+                                    _controller.dispose();
+                                  }
+                                });
+                                _controller.addListener(() {
+                                  setState(() {
+                                    y_rotate[index] = _controller.value;
+                                    if (index + 1 < productNum) {
+                                      y_rotate[index + 1] = -1;
+                                      if (_controller.value == 1) {
+                                        startNext = true;
+                                      }
+                                      if (startNext) {
+                                        y_rotate[index + 1] =
+                                            -_controller.value;
+                                      }
+                                    }
+                                  });
+                                });
+                                if (listController.offset >= 10 + 300 * index) {
+                                  listController.animateTo(
+                                      300 * (index + 1).toDouble(),
+                                      duration: Duration(milliseconds: 1000),
+                                      curve: Curves.linear);
+                                }
+                              },
+                            );
+                          },
                         ),
                       ),
                     ],
@@ -202,7 +238,7 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                     ],
                   ),
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       ConstrainedBox(
                         constraints: new BoxConstraints(
@@ -211,27 +247,14 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                           maxHeight: 200.0,
                           //maxWidth: 2000.0,
                         ),
-//
                         child: ListView.builder(
                           primary: false,
                           itemCount: 4,
                           padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                           itemBuilder: (BuildContext context, int index) {
-//                            return SlideTransition(
-//                              position: _offsetAnimation,
-                            child:
-                            return NewProduct();
-                            // );
-                            //return NewProduct();
+                            return newProductList[index];
                           },
                           scrollDirection: Axis.horizontal,
-//                          primary: false,
-//                          padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-//                          children: <Widget>[
-//                            NewProduct(),
-//                            NewProduct(),
-//                            NewProduct(),
-//                          ],
                         ),
                       ),
                       SizedBox(
