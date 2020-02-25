@@ -21,10 +21,11 @@ class Product extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //double height=;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+      padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
       child: SizedBox(
-        height: 350,
+        // height: 265,
         width: 270,
         child: Stack(
           children: <Widget>[
@@ -34,7 +35,7 @@ class Product extends StatelessWidget {
                     minWidth: 100,
                     maxWidth: 300,
                     minHeight: 250,
-                    maxHeight: 290),
+                    maxHeight: 300),
                 decoration: BoxDecoration(
                   boxShadow: <BoxShadow>[
                     BoxShadow(
@@ -49,7 +50,7 @@ class Product extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 10, 10, 10),
+                      padding: const EdgeInsets.fromLTRB(20.0, 7, 10, 7),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -87,7 +88,7 @@ class Product extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 10, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(20.0, 7, 0, 0),
                       child: Row(
                         children: <Widget>[
                           Text(
@@ -101,7 +102,7 @@ class Product extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 90, 10, 10),
+                      padding: const EdgeInsets.fromLTRB(20.0, 120, 10, 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[

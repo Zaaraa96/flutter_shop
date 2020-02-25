@@ -35,7 +35,7 @@ class _VerticalAppBarState extends State<VerticalAppBar>
         backgroundColor: Colors.white,
         title: TabBar(
           tabs: myTabs,
-          labelPadding: const EdgeInsets.fromLTRB(0.0, 5, 10, 10),
+          labelPadding: const EdgeInsets.fromLTRB(0.0, 5, 7, 10),
           indicatorColor: Colors.white,
           labelColor: Colors.black,
           unselectedLabelColor: Colors.grey,
