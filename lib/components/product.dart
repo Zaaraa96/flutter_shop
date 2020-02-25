@@ -49,6 +49,15 @@ class _ProductState extends State<Product> with TickerProviderStateMixin {
     this.url = url;
     this.price = price;
   }
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   double xTranslate = 0;
   @override
   Widget build(BuildContext context) {
