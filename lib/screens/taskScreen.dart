@@ -194,7 +194,7 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                                     });
                                   });
                                   if (listController.offset >=
-                                      10 + 320 * index) {
+                                      2 + 320 * index) {
                                     listController.animateTo(
                                         320 * (index + 1).toDouble(),
                                         duration: Duration(milliseconds: 1000),
