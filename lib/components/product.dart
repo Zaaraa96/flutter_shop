@@ -65,25 +65,27 @@ class _ProductState extends State<Product> with TickerProviderStateMixin {
       padding: const EdgeInsets.fromLTRB(10, 10, 50, 0),
       child: Listener(
         onPointerMove: (ctx) {
-          AnimationController _controller = AnimationController(
-            duration: const Duration(milliseconds: 500),
-            vsync: this,
-          );
-          Animation curve =
-              CurvedAnimation(parent: _controller, curve: Curves.easeOut);
-          _controller.forward();
-          curve.addStatusListener((status) {
-            if (status == AnimationStatus.completed) {
-              _controller.reverse(from: 1);
-            } else if (status == AnimationStatus.dismissed) {
-              _controller.dispose();
-            }
-          });
-          _controller.addListener(() {
-            setState(() {
-              xTranslate = 100 * _controller.value;
+          if (ctx.delta.dx < -2) {
+            AnimationController _controller = AnimationController(
+              duration: const Duration(milliseconds: 500),
+              vsync: this,
+            );
+            Animation curve =
+                CurvedAnimation(parent: _controller, curve: Curves.easeOut);
+            _controller.forward();
+            curve.addStatusListener((status) {
+              if (status == AnimationStatus.completed) {
+                _controller.reverse(from: 1);
+              } else if (status == AnimationStatus.dismissed) {
+                _controller.dispose();
+              }
             });
-          });
+            _controller.addListener(() {
+              setState(() {
+                xTranslate = 100 * _controller.value;
+              });
+            });
+          }
         },
         child: Stack(
           children: <Widget>[
