@@ -135,27 +135,22 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Expanded(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Stack(
                       children: <Widget>[
-                        SizedBox(
-                          width: 50,
-                          child: VerticalAppBar(),
-                        ),
+                        VerticalAppBar(),
                         ConstrainedBox(
                           constraints: new BoxConstraints(
                             minHeight: 250.0,
                             minWidth: 5.0,
                             // maxHeight: 260.0,
-                            maxWidth:
-                                (MediaQuery.of(context).size.width) - 50.0,
+                            maxWidth: (MediaQuery.of(context).size.width),
                           ),
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             controller: listController,
                             itemCount: 4,
                             primary: false,
-                            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                            padding: const EdgeInsets.fromLTRB(50, 0, 30, 0),
                             itemBuilder: (BuildContext context, int index) {
                               return Listener(
                                 child: Transform(
@@ -199,9 +194,9 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                                     });
                                   });
                                   if (listController.offset >=
-                                      10 + 300 * index) {
+                                      10 + 320 * index) {
                                     listController.animateTo(
-                                        300 * (index + 1).toDouble(),
+                                        320 * (index + 1).toDouble(),
                                         duration: Duration(milliseconds: 1000),
                                         curve: Curves.linear);
                                   }
