@@ -44,7 +44,7 @@ const List productList = [
   },
   {
     //Color.fromARGB(1, 73, 230, 37)
-    'backgroundColor': Color(0xff49AB33),
+    'backgroundColor': Colors.deepOrange,
     'brand': 'Nike',
     'model': 'AIR-270',
     'price': '\$150.00',
