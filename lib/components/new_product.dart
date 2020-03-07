@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 
 class NewProduct extends StatelessWidget {
-  String url;
-  String model;
-  String price;
-  NewProduct({@required model, @required price, @required url}) {
-    this.model = model;
-    this.url = url;
-    this.price = price;
-  }
+  final String url;
+  final String model;
+  final String price;
+  NewProduct({@required this.model, @required this.price, @required this.url});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,7 +19,7 @@ class NewProduct extends StatelessWidget {
               image: DecorationImage(
                 alignment: Alignment.center,
                 image: AssetImage(url),
-                fit: BoxFit.contain,
+                fit: BoxFit.fitWidth,
               ),
               color: Colors.white,
             ),

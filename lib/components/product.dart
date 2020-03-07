@@ -1,72 +1,34 @@
 import 'package:flutter/material.dart';
-//
-//class Product extends StatelessWidget {
-//  Color backgroundColor;
-//  bool move;
-//  String brand;
-//  String model;
-//  String price;
-//  String url;
-//  Product({
-//    @required backgroundColor,
-//    @required brand,
-//    @required model,
-//    @required price,
-//    @required url,
-//    @required move,
-//  }) {
-//    this.backgroundColor = backgroundColor;
-//    this.brand = brand;
-//    this.model = model;
-//    this.url = url;
-//    this.price = price;
-//    this.move = move;
-//  }
-//
-//  @override
-//  ProductState createState() => ProductState(
-//        backgroundColor: backgroundColor,
-//        brand: brand,
-//        model: model,
-//        url: url,
-//        price: price,
-//        move: move,
-//      );
-//}
 
 class Product extends StatelessWidget {
-  Color backgroundColor;
-  double xTranslate;
-  String brand;
-  String model;
-  String price;
-  String url;
+  final Color backgroundColor;
+  final double xTranslate;
+  final String brand;
+  final String model;
+  final String price;
+  final String url;
   Product({
-    @required backgroundColor,
-    @required xTranslate,
-    @required brand,
-    @required model,
-    @required price,
-    @required url,
-  }) {
-    this.xTranslate = xTranslate;
-    this.backgroundColor = backgroundColor;
-    this.brand = brand;
-    this.model = model;
-    this.url = url;
-    this.price = price;
-  }
+    @required this.backgroundColor,
+    @required this.xTranslate,
+    @required this.brand,
+    @required this.model,
+    @required this.price,
+    @required this.url,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 10, 50, 0),
+      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
       child: Stack(
         children: <Widget>[
           Container(
               width: 220,
+              height: 300,
               constraints: BoxConstraints(
-                  minWidth: 220, maxWidth: 300, minHeight: 250, maxHeight: 300),
+                minWidth: 220,
+                maxWidth: 300,
+              ),
               decoration: BoxDecoration(
                 boxShadow: <BoxShadow>[
                   BoxShadow(
@@ -81,13 +43,13 @@ class Product extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(10.0, 7, 10, 7),
+                    padding: const EdgeInsets.fromLTRB(20.0, 7, 10, 7),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
                           brand,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                           ),
                         ),
@@ -109,7 +71,7 @@ class Product extends StatelessWidget {
                       children: <Widget>[
                         Text(
                           model,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
                             fontSize: 20,
@@ -124,7 +86,7 @@ class Product extends StatelessWidget {
                       children: <Widget>[
                         Text(
                           price,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 12,
                           ),
@@ -154,18 +116,21 @@ class Product extends StatelessWidget {
                   ),
                 ],
               )),
-          Transform(
-            transform: Matrix4.identity()
-              ..setEntry(3, 2, 0.002)
-              ..translate(xTranslate),
-            child: Container(
-              width: 250,
-              height: 250,
-              margin: EdgeInsets.fromLTRB(5, 20, 0, 0),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(url),
-                  fit: BoxFit.scaleDown,
+          Container(
+            height: 300,
+            child: Transform(
+              transform: Matrix4.identity()
+                ..setEntry(3, 2, 0.002)
+                ..translate(xTranslate),
+              child: Container(
+                width: 260,
+                height: 260,
+                padding: const EdgeInsets.fromLTRB(5, 20, 0, 0),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(url),
+                    fit: BoxFit.scaleDown,
+                  ),
                 ),
               ),
             ),
