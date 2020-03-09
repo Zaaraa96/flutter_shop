@@ -105,8 +105,12 @@ class _VerticalAppBarState extends State<VerticalAppBar>
                 ),
               ),
               onPointerMove: (ctx) {
+                int next = index + 1;
+                if (ctx.position.dx > 240.0) {
+                  next -= 1;
+                }
                 if (ctx.delta.dx < 0) {
-                  listController.animateTo(offset * (index + 1).toDouble(),
+                  listController.animateTo(offset * next.toDouble(),
                       duration: Duration(milliseconds: 600),
                       curve: Curves.linear);
                   bool startNext = false;
@@ -133,24 +137,24 @@ class _VerticalAppBarState extends State<VerticalAppBar>
                   });
                   _controller.addListener(() {
                     setState(() {
-                      y_rotate[index] = _controller.value;
+                      y_rotate[next - 1] = _controller.value;
 
-                      if (index + 1 < productNum) {
-                        y_rotate[index + 1] = -1;
+                      if (next < productNum) {
+                        y_rotate[next] = -1;
                         Provider.of<Data>(context, listen: false)
-                            .changeX(0.4, index + 1);
+                            .changeX(0.4, next);
                         if (startNext) {
                           //print(_controller.value);
                           if (_controller.value <= 0.2) {
                             Provider.of<Data>(context, listen: false)
-                                .changeX(2 * _controller.value, index + 1);
+                                .changeX(2 * _controller.value, next);
                           }
 
-                          y_rotate[index + 1] = -2 * _controller.value;
+                          y_rotate[next] = -2 * _controller.value;
                         }
                       }
                       Provider.of<Data>(context, listen: false)
-                          .changeX(-_controller.value, index);
+                          .changeX(-_controller.value, next - 1);
                     });
                   });
                 } else if (ctx.delta.dx > 0) {
